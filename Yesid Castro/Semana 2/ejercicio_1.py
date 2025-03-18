@@ -18,8 +18,6 @@ for contenido in persona:
         if edad > 60:
             print("mayor a 60") 
             break
-        if edad < 18:
-            edad = input("cambie la edad:")
     except :
         continue
      
