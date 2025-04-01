@@ -30,6 +30,7 @@ system("clear")
 ### Creacion de variables
 productos = []
 producto = {}
+ir_inicio = "n"
 ### opciones del aplicativo interaccional
 
 while True: 
@@ -37,17 +38,27 @@ while True:
         menu()
         opcion = int(input())
         system("clear")
+        
         if opcion == 1: #OPCION 1: Verifica si está aprobado
-            print("Agregar Producto\n")
-            nombre = input("Nombre:")
-            precio = input("Precio:")
-            stock = input("Cantidades:")
-            
-            ir_inicio = input("Enter 's' para Ir al Menú") #'s' para salir de la opcion
-            if ir_inicio.lower() == "s":
-                continue
-            raise ValueError
 
+            while ir_inicio != 's':
+                print("Agregar Producto\n")
+                nombre = input("Nombre:")
+                precio = input("Precio:")
+                stock = input("Cantidades:")
+                
+                producto = {"nombre": nombre, "precio": precio, "stock": stock}
+                productos.append(producto)
+
+                print("Producto ingresado con EXITO")
+                ir_inicio = input("Desea ingresar otro producto? Si / No(volver al MENU)")
+
+                if ir_inicio == 's':
+                    system("clear")
+                    continue
+                
+                break
+                
         elif opcion == 2: #OPCION 2: Calcula el promedio de una secuencia de numeros dadas por ',' coma
 
             
