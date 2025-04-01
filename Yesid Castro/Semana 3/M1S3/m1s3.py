@@ -38,7 +38,10 @@ while True:
         opcion = int(input())
         system("clear")
         if opcion == 1: #OPCION 1: Verifica si está aprobado
-
+            print("Agregar Producto\n")
+            nombre = input("Nombre:")
+            precio = input("Precio:")
+            stock = input("Cantidades:")
             
             ir_inicio = input("Enter 's' para Ir al Menú") #'s' para salir de la opcion
             if ir_inicio.lower() == "s":
@@ -72,4 +75,3 @@ while True:
         break
 system("clear")
 print("Has Salido del programa!")
-
