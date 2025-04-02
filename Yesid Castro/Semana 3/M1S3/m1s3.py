@@ -100,25 +100,38 @@ while True:
                 break
                 
         elif opcion == 2: #OPCION 2: Consultar productos
-            while True:   
-                system("clear")
-                
-                # Imprime los registros de la lista 
-                imprimir_registros(productos, producto)
-
-                consulta_producto = int(input("\nDigite numero de ID para consultar un producto:")) #Entrada de datos: El usuario digita el ID para poder realizar la busqueda
-
-                for producto in productos:
-                    if consulta_producto == producto["ID"]:
-                        producto_encontrado == True
-                        break
+            if len(productos) == 0:
+                print("No hay Productos ingresados, Por favor ingrese productor en el menú principal en la opcion '1'")
+                preciona_ok = input("Ingrese 'ok' para regresar al menu")
+            else:
+                while True:   
+                    system("clear")
                     
-                ir_inicio = input("Desea consultar otro producto? s / n(volver al MENU)")
-                ir_inicio.lower #Todo texto ingresado es parceado a minusculas
+                    # Imprime los registros de la lista 
+                    imprimir_registros(productos, producto)
 
-                if ir_inicio == 's': #Salida del punto
-                    continue
-                break
+                    consulta_producto = int(input("\nDigite numero de ID para consultar un producto:")) #Entrada de datos: El usuario digita el ID para poder realizar la busqueda
+
+                    for producto in productos:
+                        if consulta_producto == producto["ID"]:
+
+                            id_producto = producto["ID"]
+                            nombre_producto = producto["nombre"]
+                            precio_producto = producto["precio"]
+                            stok_producto = producto["stock"]
+                            print("")
+                            print("-" * 67)
+                            print(f"{'ID':<5} {'Nombre Producto':<20} {'Precio Unitario':<20}{'Cantidad disponible':<20}")
+                            print("-" * 67)
+                            print(f"{id_producto:<5} {nombre_producto:<20} {precio_producto:<20} {stok_producto:<20}")
+                            break
+                        
+                    ir_inicio = input("Desea consultar otro producto? s / n(volver al MENU)")
+                    ir_inicio.lower #Todo texto ingresado es parceado a minusculas
+
+                    if ir_inicio == 's': #Salida del punto
+                        continue
+                    break
 
         elif opcion == 3: #OPCION 3: Listas mayores a un valor de entrada.
             
