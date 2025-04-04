@@ -24,14 +24,14 @@ def imprimir_registros(lista, diccionario):  #Funcion que muestra la tabla de lo
         print(f"{id_producto:<5} {nombre_producto:<20}")
 
 def menu():  #Funcion que muestra el menu
-    print("\nOPCIONES INVENTARIO")
-    print("\nSeleccione una opción:\n")
-
-    print("1. Añadir Productos.")
-    print("2. Consultar Productos.")
-    print("3. Actualizar Precios.")
-    print("4. Calcular el valor total del inventario.")
-    print("\nEnter any key for exit.")
+    print("""\nOPCIONES INVENTARIO
+        \nSeleccione una opción:\n
+    1. Añadir Productos.
+    2. Consultar Productos.
+    3. Actualizar Precios.
+    4. Eliminar Productos.
+    5. Calcular el valor total del inventario.
+        \nEnter any key for exit. """)
 
 def numero_valido(numero): #Validacion de numero
     try:
@@ -42,10 +42,15 @@ def numero_valido(numero): #Validacion de numero
             return False
     except:
         return False
-    
-def msj_numero_valido_o_no (swich):
-    if swich == False:
-        print("Por favor, ingrese un numero valido.")
+
+def numero_correcto(msg): #Validacion de entrada, parameptros: mensaje para pedir el numero
+     while True: 
+        numero = input(msg) #Entrada de datos: El usuario digita el ID para poder realizar la busqueda
+        if numero_valido(numero):
+            return float(numero)
+        else:
+            print("Por favor, ingrese un numero valido.")
+
 
 
 ### Creacion de variables
@@ -53,8 +58,8 @@ productos = []
 producto = {}
 ir_inicio = 's'
 contador = 0
-producto_encontrado = False
 num_valido = True
+valor_total = 0
 
 ### opciones del aplicativo interaccional
 
@@ -69,25 +74,12 @@ while True:
             while True:
                 system("clear")
                 print("Agregar Producto\n")
-                nombre = input("Nombre:")
-
-                while True: #Validacion de entrada
-                    msj_numero_valido_o_no(num_valido)
-                    precio = input("Precio:")
-                    num_valido = numero_valido(precio)
-                    if num_valido:
-                        float(precio)
-                        break
                 
-                while True: #Validacion de entrada
-                    msj_numero_valido_o_no(num_valido)
-                    stock = input("Cantidades:")
-                    num_valido = numero_valido(stock)
-                    if num_valido:
-                        float(stock)
-                        break
-
+                nombre = input("Nombre:")
+                precio = numero_correcto("Precio:")
+                stock = numero_correcto("Cantidades:")
                 contador += 1
+
                 producto = {"ID": contador, "nombre": nombre, "precio": precio, "stock": stock}
                 productos.append(producto)
 
@@ -99,22 +91,25 @@ while True:
                     continue
                 break
                 
-        elif opcion == 2: #OPCION 2: Consultar productos
+        elif opcion == 2: #OPCION 2: Consultar producto
             if len(productos) == 0:
-                print("No hay Productos ingresados, Por favor ingrese productor en el menú principal en la opcion '1'")
-                preciona_ok = input("Ingrese 'ok' para regresar al menu")
+                system("clear")
+                print("No hay Productos ingresados, Por favor ingrese Productos en el menú principal en la opcion '1'")
+                preciona_ok = input("\fPresione ENTER para regresar al menu")
             else:
                 while True:   
                     system("clear")
-                    
+
+                    producto_encontrado = False
                     # Imprime los registros de la lista 
                     imprimir_registros(productos, producto)
 
-                    consulta_producto = int(input("\nDigite numero de ID para consultar un producto:")) #Entrada de datos: El usuario digita el ID para poder realizar la busqueda
+                    consulta_producto = numero_correcto("\nDigite numero de ID para consultar un producto:") #Entrada de datos: El usuario digita el ID para poder realizar la busqueda
+                            
 
                     for producto in productos:
                         if consulta_producto == producto["ID"]:
-
+                            producto_encontrado = True
                             id_producto = producto["ID"]
                             nombre_producto = producto["nombre"]
                             precio_producto = producto["precio"]
@@ -125,30 +120,89 @@ while True:
                             print("-" * 67)
                             print(f"{id_producto:<5} {nombre_producto:<20} {precio_producto:<20} {stok_producto:<20}")
                             break
-                        
-                    ir_inicio = input("Desea consultar otro producto? s / n(volver al MENU)")
+                    print("-" * 67)
+                    if producto_encontrado == False:
+                        print("No Existe ese ID, consulte otro")
+                    ir_inicio = input("\nDesea consultar otro producto? s / n(volver al MENU)")
                     ir_inicio.lower #Todo texto ingresado es parceado a minusculas
+                    producto_encontrado = False
 
                     if ir_inicio == 's': #Salida del punto
                         continue
                     break
 
         elif opcion == 3: #OPCION 3: Listas mayores a un valor de entrada.
-            
-            
-            ir_inicio = input("Enter 's' para Ir al Menú") #'s' para salir de la opcion
-            if ir_inicio.lower() == "s":
-                continue
-            raise ValueError
-        
-        elif opcion == 4: #OPCION 4: Ingresar nuevamente calificaciones
+            producto_encontrado = False
+            if len(productos) == 0:
+                system("clear")
+                print("No hay Productos ingresados, Por favor ingrese Productos en el menú principal en la opcion '1'")
+                preciona_ok = input("\fPresione ENTER para regresar al menu")
+            else:
+                while True:   
+                    system("clear")
+                    
+                    # Imprime los registros de la lista 
+                    imprimir_registros(productos, producto)
+                    consulta_producto = numero_correcto("\nDigite numero de ID para consultar un producto:")
+                            
+                    for producto in productos:
+                        if consulta_producto == producto["ID"]:
+                            producto_encontrado = True
+                            id_producto = producto["ID"]
+                            nombre_producto = producto["nombre"]
+                            precio_producto = producto["precio"]
+                            stok_producto = producto["stock"]
+                            print("")
+                            print("-" * 67)
+                            print(f"{'ID':<5} {'Nombre Producto':<20} {'Precio Unitario':<20}{'Cantidad disponible':<20}")
+                            print("-" * 67)
+                            print(f"{id_producto:<5} {nombre_producto:<20} {precio_producto:<20} {stok_producto:<20}")
 
-            ir_inicio = input("Enter 's' para Ir al Menú") #'s' para salir de la opcion
-            if ir_inicio.lower() == "s":
-                continue
-            raise ValueError
+                            break
+                    print("-" * 67)
+
+                    if producto_encontrado == False:
+                        print("No Existe ese ID, consulte otro")
+                    else:    
+                        
+                        cambio_precio = numero_correcto(f"Ingrese el nuevo precio del producto '{nombre_producto}':")
+                        producto["precio"] = cambio_precio
+                        
+                        ir_inicio = input("\nDesea consultar otro producto? s / n(volver al MENU)")
+                        ir_inicio.lower #Todo texto ingresado es parceado a minusculas
+                        producto_encontrado = False
+
+                        if ir_inicio == 's': #Salida del punto
+                            continue
+                        break
+            
+        elif opcion == 4: #OPCION 4: Calcular el valor total del inventario
+
+            if len(productos) == 0:
+                system("clear")
+                print("No hay Productos ingresados, Por favor ingrese Productos en el menú principal en la opción '1'")
+                input("Presione ENTER para regresar al menu")
+            else:
+                # Usamos lambda y map() para calcular el valor total
+                valor_total = sum(map(lambda x: x["precio"] * x["stock"], productos))
+
+                print(f"\nEl valor total del inventario es: {valor_total}")
+                input("\nPresione ENTER para volver al menú.")
+        
+        elif opcion == 5: #OPCION 4: Calcular el valor total del inventario
+
+            if len(productos) == 0:
+                system("clear")
+                print("No hay Productos ingresados, Por favor ingrese Productos en el menú principal en la opción '1'")
+                input("Presione ENTER para regresar al menu")
+            else:
+                # Usamos lambda y map() para calcular el valor total
+                valor_total = sum(map(lambda x: x["precio"] * x["stock"], productos))
+
+                print(f"\nEl valor total del inventario es: {valor_total}")
+                input("\nPresione ENTER para volver al menú.")
             
     except:
         break
-# system("clear")
-# print("Has Salido del programa!")
+system("clear")
+print("Has Salido del programa!")
