@@ -175,20 +175,51 @@ while True:
                             continue
                         break
             
-        elif opcion == 4: #OPCION 4: Calcular el valor total del inventario
+        elif opcion == 4: #OPCION 4: Eliminar Productos
 
             if len(productos) == 0:
                 system("clear")
                 print("No hay Productos ingresados, Por favor ingrese Productos en el menú principal en la opción '1'")
                 input("Presione ENTER para regresar al menu")
             else:
-                # Usamos lambda y map() para calcular el valor total
-                valor_total = sum(map(lambda x: x["precio"] * x["stock"], productos))
+                system("clear")
+                    
+                # Imprime los registros de la lista 
+                imprimir_registros(productos, producto)
+                consulta_producto = numero_correcto("\nDigite numero de ID para consultar un producto:")
+                        
+                for producto in productos:
+                    if consulta_producto == producto["ID"]:
+                        producto_encontrado = True
+                        id_producto = producto["ID"]
+                        nombre_producto = producto["nombre"]
+                        precio_producto = producto["precio"]
+                        stok_producto = producto["stock"]
+                        print("")
+                        print("-" * 67)
+                        print(f"{'ID':<5} {'Nombre Producto':<20} {'Precio Unitario':<20}{'Cantidad disponible':<20}")
+                        print("-" * 67)
+                        print(f"{id_producto:<5} {nombre_producto:<20} {precio_producto:<20} {stok_producto:<20}")
 
-                print(f"\nEl valor total del inventario es: {valor_total}")
-                input("\nPresione ENTER para volver al menú.")
+                        break
+                print("-" * 67)
+
+                if producto_encontrado == False:
+                    print("No Existe ese ID, consulte otro")
+                else:    
+                    
+                    producto_eiminar = input(f"Desea eliminar el producto: '{nombre_producto}' del inventario? (si / no):").lower()
+                    if producto_eiminar == "si":
+                        producto_eiminar_confirmacion = input(f"Esta seguro que desea eliminar el producto: '{nombre_producto}' del inventario? (si / no):").lower()
+                        if producto_eiminar_confirmacion == producto.remove():
+                            producto.remove()
+                        else:
+                            break
+                    else:
+                        break
+            break
         
-        elif opcion == 5: #OPCION 4: Calcular el valor total del inventario
+        elif opcion == 5: #OPCION 5: Calcular el valor total del inventario
 
             if len(productos) == 0:
                 system("clear")
