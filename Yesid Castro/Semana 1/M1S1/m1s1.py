@@ -1,3 +1,4 @@
+#Enunciado Trabajo
 """Crear un programa que calcule el costo total de una compra
 debe solicitar: nombre del producto, precio unitario, cantidad de productos
 y un porcentaje de descuento si aplica.
@@ -11,14 +12,14 @@ y utilizando valores con dos decimales para mayor claridad."""
 from os import system
 # Definicion de funciones
 
-def menu():
+def menu(): #muestra el menu
     print("Bienvenido al programa de Tiendas Ara\n\n")
     print("Por favor seleccione alguna de las siguientes opciones:\n")
     print("1. Ingresar compra")
     print("2. generar factura")
     print("3. Salir")
 
-def ingresar_compra():
+def ingresar_compra(): #
     while True:
         nombre_producto = input("Nombre del producto: ").strip()
         if len(nombre_producto) > 0:
@@ -110,15 +111,6 @@ while True:
     else:
         limpiar()
         print("Opción no válida por favor intente nuevamente\n\n")
-
-
-
-
-
-
-
-
-
 
 
 #FIN PROGRAMA
