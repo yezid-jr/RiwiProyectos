@@ -9,21 +9,26 @@ y utilizando valores con dos decimales para mayor claridad."""
 
 # Importar librerias
 from os import system
-system("clear")
 # Definicion de funciones
 
 def menu():
     print("Bienvenido al programa de Tiendas Ara\n\n")
-    print("Por favor ingrese los siguientes datos:\n")
+    print("Por favor seleccione alguna de las siguientes opciones:\n")
     print("1. Ingresar compra")
     print("2. generar factura")
     print("3. Salir")
 
 def ingresar_compra():
-    nombre_producto = input("Nombre del producto: ")
+    while True:
+        nombre_producto = input("Nombre del producto: ").strip()
+        if len(nombre_producto) > 0:
+            break
+        else:
+            print("El nombre del producto no puede estar vacío.")
+
     precio_unitario = numero_valido(input("Precio unitario: "))
     cantidad_productos = numero_valido(input("Cantidad de productos: "))
-    pregunta_descuento = input("¿Aplica descuento? (si/no): ").strip().lower()
+    pregunta_descuento = input("¿Aplica descuento? ingrese 'SI' para agregar descuento, si ingresa otra respuesta el descuento NO aplicará: ").strip().lower()
     
     if pregunta_descuento == "si":
         while True:
@@ -40,7 +45,7 @@ def ingresar_compra():
 
 def mostrar_factura(nombre_producto, precio_unitario, cantidad_productos, porcentaje_descuento):
     total_sin_descuento = precio_unitario * cantidad_productos
-    total_con_descuento = (100 - porcentaje_descuento) * total_sin_descuento
+    total_con_descuento = ((100 - porcentaje_descuento)/100) * total_sin_descuento
     if porcentaje_descuento == 0:
         descuento_mensaje = "No aplica"
     else:
@@ -50,12 +55,12 @@ def mostrar_factura(nombre_producto, precio_unitario, cantidad_productos, porcen
     print("Bienvenido a Tiendas Ara".center(60))
     print(f"{'Factura de compra':^60}")
     print("-" * 60)
-    print(f"{'Producto:':<20} {nombre_producto:<30}")
-    print(f"{'Precio unitario:':<20} ${precio_unitario:.2f}")
-    print(f"{'Cantidad:':<20} {cantidad_productos:<30}")
-    print(f"{'Total sin descuento:':<20} ${total_sin_descuento:.2f}")
-    print(f"{'Descuento aplicado:':<20} {descuento_mensaje}")
-    print(f"\n{'Total con descuento:':<20} ${total_con_descuento:.2f}")
+    print(f"{'Producto:':<30} {nombre_producto:<30}")
+    print(f"{'Precio unitario:':<30} ${precio_unitario:.2f}")
+    print(f"{'Cantidad:':<30} {cantidad_productos:<30}")
+    print(f"{'Total sin descuento:':<30} ${total_sin_descuento:.2f}")
+    print(f"{'Descuento aplicado:':<30} {descuento_mensaje}")
+    print(f"\n{'Total con descuento:':<30} ${total_con_descuento:.2f}")
     print("-" * 60)
     print("Gracias por su compra".center(60))
     print("--" * 30)
@@ -76,7 +81,7 @@ def numero_valido(numero):
             continue
 
 
-
+limpiar()
 # Inicio del programa
 while True:
     menu()
@@ -86,9 +91,10 @@ while True:
         limpiar()
         nombre_produ, precio, cantidad, porcentaje_des = ingresar_compra()
     elif opcion == "2":
+        limpiar()
         try:
             mostrar_factura(nombre_produ, precio, cantidad, porcentaje_des)
-            salir = input("\nEnter para salir")
+            salir = input("\nEnter para salir").strip()
             while True:
                 if salir == "":
                     limpiar()
