@@ -29,11 +29,11 @@ def validar_numero(numero): #Funcion que retorna T/F para verificar que es un ca
             return True
         else:
             return False
-    except:
+    except ValueError:
             return False
 
 def menu():  #Funcion que muestra el menu
-    print("\n\nOPCIONES CALIFICACIONES")
+    print("\nOPCIONES CALIFICACIONES")
     print("\nSeleccione una opción:\n")
 
     print("1. Verifica si aprobaste.")
@@ -67,38 +67,51 @@ def procesamiento_lista(lista, opcion): #Funcion para calcular el promedio de la
 def print_lista (lista):
     print("Tu Lista De Calificaciones:",lista)
 
+def limpiar_terminal(): #Limpia la terminal
+    system("clear")
+    system("cls")
+
+def lista_califica(sw):
+    while sw == True:
+        sw = False
+        print("Bienvenido al programa de gestion de calificaciones")
+        print("\nIngrese calificaciones separadas por ','(Coma) EJEMPLO: 80, 90, 100")
+        print("Recuerde que las calificaciones deben estar entre 0 y 100")
+        numero_calificaciones = input("\nIngrese sus calificaciones:")
+        lista_calificaciones_filtro = numero_calificaciones.split(",")
+        tamaño_lista = len(lista_calificaciones_filtro)
+
+        for i in range(tamaño_lista): #Recorre la lista
+
+            es_valido = validar_numero(lista_calificaciones_filtro[i])
+            if es_valido == False:
+                limpiar_terminal()
+                print(f"El programa a detectado un valor NO valido. '{lista_calificaciones_filtro[i]}' Saliendo de la lista...\n")
+                sw = True
+                print("Intente Nuevamente")
+                break
+    return lista_calificaciones_filtro, sw, tamaño_lista
 
 ### Primer ingreso de la lista de calificaciones
 
-system("clear")
-while lista_se_rompe == True:
-    lista_se_rompe = False
-    numero_calificaciones = input("Ingrese sus calificaciones separadas por ','(Coma) y de 0 a 100:")
-    lista_calificaciones = numero_calificaciones.split(",")
-    tamaño_lista = len(lista_calificaciones)
+limpiar_terminal()
 
-    for i in range(tamaño_lista):
-
-        es_valido = validar_numero(lista_calificaciones[i])
-        if es_valido == False:
-            print(f"El programa a detectado un valor NO valido. '{lista_calificaciones[i]}' Saliendo de la lista...\n")
-            lista_se_rompe = True
-            break
-    print("Intente Nuevamente")
+lista_calificaciones, lista_se_rompe, tamaño_lista = lista_califica(lista_se_rompe) #Llama a la funcion para ingresar la lista de calificaciones   
 
 
 ### opciones del aplicativo interaccional
 
 if lista_se_rompe == False:
-    system("clear") #Limpia la terminal
+    limpiar_terminal()
     print(f"lista ingresada Correctamente.\nCalificaciones ingresadas: {lista_calificaciones}")
     while True: 
         try:
             menu()
             opcion = int(input())
-            system("clear")
-            if opcion == 1: #OPCION 1: Verifica si está aprobado
 
+            if opcion == 1: #OPCION 1: Verifica si está aprobado
+                
+                limpiar_terminal()
                 aprobado = procesamiento_lista(lista_calificaciones, opcion) #pasa la lista y la opcion = 1 y manda el return definido en la funcion
                 print("\nAprobaste!\n" if aprobado else "\nNo Aprobaste :(\n")
 
@@ -109,6 +122,7 @@ if lista_se_rompe == False:
 
             elif opcion == 2: #OPCION 2: Calcula el promedio de una secuencia de numeros dadas por ',' coma
 
+                limpiar_terminal()
                 promedio = procesamiento_lista(lista_calificaciones, opcion) #pasa la lista y la opcion = 2 y manda el return definido en la funcion
                 print("Tu promedio es: ",promedio)
 
@@ -119,6 +133,7 @@ if lista_se_rompe == False:
 
             elif opcion == 3: #OPCION 3: Listas mayores a un valor de entrada.
                 
+                limpiar_terminal()
                 numero_usuario = float(input("Digite un numero a comprar con sus calificaciones: "))
                 lista_califi_altas = [] #Nueva lista para ingresar las notas correspondientes
 
@@ -135,29 +150,12 @@ if lista_se_rompe == False:
                 raise ValueError
             
             elif opcion == 4: #OPCION 4: Ingresar nuevamente calificaciones
-
-                while True: #Remplaza la lista calificaciones por la nueva
-                    numero_calificaciones = input("Ingrese nuevamente sus calificaciones separadas por ','(Coma) y de 0 a 100:")
-                    lista_calificaciones = numero_calificaciones.split(",")
-                    tamaño_lista = len(lista_calificaciones)
-
-                    for i in range(tamaño_lista): # Validación de las calificaciones nuevas ingresadas
-
-                        es_valido = validar_numero(lista_calificaciones[i]) #Validaciones
-                        if es_valido == False:
-                            print(f"El programa a detectado un valor NO valido. '{lista_calificaciones[i]}' Saliendo de la lista...")
-                            lista_se_rompe = True
-                            break
-
-                        if lista_se_rompe == False:
-                            system("clear")
-                            print(f"Lista ingresada correctamente.\nCalificaciones ingresadas: {lista_calificaciones}")
-                            break
-                    break
+                lista_se_rompe = True
+                limpiar_terminal()
+                print("Ingrese nuevamente las calificaciones")
+                lista_calificaciones, lista_se_rompe, tamaño_lista = lista_califica(lista_se_rompe)
         except:
             break
-
-    system("clear")
-    print("Has Salido del programa!")
-
+limpiar_terminal()
+print("Has Salido del programa!")
 
