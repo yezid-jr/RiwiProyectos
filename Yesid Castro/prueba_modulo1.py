@@ -1,37 +1,3 @@
-#IMPORTS
-import os
-#STATEMENT
-name = ""
-count = 0
-products = []
-#FUNCTIONS
-
-
-def clear():
-  if os.name == "nt":  # Windows
-    os.system("cls")
-  else:  # Linux/Mac
-    os.system("clear")
-
-def check_number(number):
-    while True:
-        try:
-            number = float(number)
-            if number < 0:
-                number = input("Please, enter a positive number:\n")
-            else:
-                return number
-        except:
-            number = input("Please, enter a valid number:\n")
-
-def print_logs(products):
-    print(f"{'ID':<5} {'Name Product':<20}")
-    print("-" * 23)
-    for product in products:
-        id_product = product["ID"]
-        name_product = product["name"]
-        print(f"{id_product:<5} {name_product:<20}")
-
 while True:
     clear()
     print("""\nINVENTORY MANAGEMENT 
@@ -40,14 +6,22 @@ while True:
             2. Management Product.
             3. Total Inventory
             \nPress key Enter for exit. """)
-    option = int(input())
+    
+    option_input = input()
+    if option_input == "":
+        break
+    try:
+        option = int(option_input)
+    except ValueError:
+        input("Invalid input. Press ENTER to return to menu.")
+        continue
 
     if option == 1:
         clear()
         exit = "yes"
         while exit == "yes" or count < 5:
             print("Add Product\n")
-            
+            name = ""
             while name == "":
                 name = input("Name:").strip()
             price = check_number(input("Price:"))
@@ -58,10 +32,9 @@ while True:
             products.append(product)
 
             print("\nProduct entered SUCCESSFULLY.\n")
-            name = ""
             minimum = 5 - count
             if count < 5:
-                print(f"Please, enter {minimum} more producs")
+                print(f"Please, enter {minimum} more products")
             else:
                 exit = input("Do you want to enter a new product? yes/no:").strip().lower()
 
@@ -71,7 +44,6 @@ while True:
             input("Please enter products, Menu - option '1'")
         else:
             print("Check Product\n")
-            
             print_logs(products)
             exit = "yes"
             while exit == "yes":
@@ -81,62 +53,61 @@ while True:
                 for product in products:
                     if check_product == product["name"]:
                         price_product = product["price"]
-                        stok_product = product["stock"]
-                        id_product = product["name"]
+                        stock_product = product["stock"]
+                        id_product = product["ID"]
                         print("\nPRODUCT DETAILS:\n")
                         print("-" * 67)
                         print(f"{'ID':<5} {'Name':<20} {'Price':<20}{'Stock':<20}")
                         print("-" * 67)
-                        print(f"{id_product:<5} {check_product:<20} {price_product:<20} {stok_product:<20}")
+                        print(f"{id_product:<5} {check_product:<20} {price_product:<20} {stock_product:<20}")
                         print("-" * 67)
                         product_found = True
                         
                         while True:
-                            option_product = int(input("Select an operation:\n1. Update\n2. Delete\n3. Exit\n"))
+                            try:
+                                option_product = int(input("Select an operation:\n1. Update\n2. Delete\n3. Exit\n"))
+                            except ValueError:
+                                print("Please enter a valid number.")
+                                continue
+                                
                             if option_product == 1:
                                 print("Update Price\n")
-
-                                change_price = check_number(f"Ingrese el nuevo precio del producto '{check_product}':")
+                                change_price = check_number(input(f"Enter the new price for '{check_product}': "))
                                 product["price"] = change_price
-                                print("Price changed SUCCESSFULLY")
+                                print("Price changed SUCCESSFULLY.")
                                 break
 
                             elif option_product == 2:
                                 print("Delete Product\n")
-
                                 confirm = input("Are you sure you want to delete this product? yes/no:").lower()
                                 if confirm == "yes":
-                                    products.pop(count)
+                                    products.remove(product)
                                     print("Product removed SUCCESSFULLY.")
                                 else:
                                     print("Operation cancelled.")
+                                break
+                            elif option_product == 3:
                                 break
                             else:
                                 print("Please, Enter a valid option.")
                         break
                         
-
-                if product_found == False:
-                    print("Poduct not found, try again")
+                if not product_found:
+                    print("Product not found, try again")
                 else:
                     exit = input("Do you want to find another product? yes/no:").lower()
-                    if exit == "yes":
-                        continue
-                    else:
+                    if exit != "yes":
                         break
         
     elif option == 3:
         clear()
         if len(products) == 0:
-            print("Inventary is empty")
+            print("Inventory is empty")
             input("Please enter products, Menu - option '1'")
         else:
             print("Calculate inventory\n")
-
             total = sum(map(lambda x: x["price"] * x["stock"], products))
-
             print(f"\nThe total price of the inventory is: ${total}")
             input("\nPress ENTER to return to the Menu")
-            
     else:
         print("Please, enter a valid option.")
