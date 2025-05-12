@@ -33,17 +33,17 @@ def print_logs(products):
         print(f"{id_product:<5} {name_product:<20}")
 
 while True:
+    clear()
     print("""\nINVENTORY MANAGEMENT 
             \nSelect an option:\n
             1. Add Product.
-            2. Check Product.
-            3. Update Price.
-            4. Delete Product.
-            5. Calculate inventory.
-            \nEnter any key for exit. """)
+            2. Management Product.
+            3. Total Inventory
+            \nPress key Enter for exit. """)
     option = int(input())
 
     if option == 1:
+        clear()
         exit = "yes"
         while exit == "yes" or count < 5:
             print("Add Product\n")
@@ -66,6 +66,7 @@ while True:
                 exit = input("Do you want to enter a new product? yes/no:").strip().lower()
 
     elif option == 2:
+        clear()
         if len(products) == 0:
             input("Please enter products, Menu - option '1'")
         else:
@@ -89,8 +90,32 @@ while True:
                         print(f"{id_product:<5} {check_product:<20} {price_product:<20} {stok_product:<20}")
                         print("-" * 67)
                         product_found = True
+                        
+                        while True:
+                            option_product = int(input("Select an operation:\n1. Update\n2. Delete\n3. Exit\n"))
+                            if option_product == 1:
+                                print("Update Price\n")
+
+                                change_price = check_number(f"Ingrese el nuevo precio del producto '{check_product}':")
+                                product["price"] = change_price
+                                print("Price changed SUCCESSFULLY")
+                                break
+
+                            elif option_product == 2:
+                                print("Delete Product\n")
+
+                                confirm = input("Are you sure you want to delete this product? yes/no:").lower()
+                                if confirm == "yes":
+                                    products.pop(count)
+                                    print("Product removed SUCCESSFULLY.")
+                                else:
+                                    print("Operation cancelled.")
+                                break
+                            else:
+                                print("Please, Enter a valid option.")
                         break
-                
+                        
+
                 if product_found == False:
                     print("Poduct not found, try again")
                 else:
@@ -99,23 +124,19 @@ while True:
                         continue
                     else:
                         break
+        
     elif option == 3:
+        clear()
         if len(products) == 0:
-            input("Please enter products, Menu - option '1'")
-        else:
-            print("Update Price\n")
-        
-    elif option == 4:
-        if len(products) == 0:
-            input("Please enter products, Menu - option '1'")
-        else:
-            print("Delete Product\n")
-        
-    elif option == 5:
-        if len(products) == 0:
+            print("Inventary is empty")
             input("Please enter products, Menu - option '1'")
         else:
             print("Calculate inventory\n")
-        
+
+            total = sum(map(lambda x: x["price"] * x["stock"], products))
+
+            print(f"\nThe total price of the inventory is: ${total}")
+            input("\nPress ENTER to return to the Menu")
+            
     else:
         print("Please, enter a valid option.")
