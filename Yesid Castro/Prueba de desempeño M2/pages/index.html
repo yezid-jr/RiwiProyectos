@@ -1,36 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tattoo page</title>
-    <link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yesid's Portfolio</title>
+  <link rel="stylesheet" href="./../assets/css/style.css"/>
 </head>
 <body>
-    <header>
-        <section>
-            <div>
-                <img src="./../assets/imgs/360_F_269661030_X3V976sbYKmaO3QJ0N1HVIg6Ef2g04zN.jpg" alt="Logo">
-            </div>
+  <header>
+    <section>
+      <div>
+        <H1>PORTFOLIO</H1>
+      </div>
+      <nav>
+        <ul class="options">
+          <li><a class="final-option" href="#welcome">MAIN</a></li>
+          <li><a href="#work">PROYECTS</a></li>
+          <li><a href="#contactus">CONTACT</a></li>
+        </ul>
+      </nav>
+    </section>
+  </header>
 
-            <div>
-                <nav>
-                    <ul class="options">
-                        <a href=""><li>Main</li></a>
-                        <a href=""><li>Work</li></a>
-                        <a href=""><li>Cares</li></a>
-                    </ul>
-                </nav>
-            </div>
-        </section>
-    </header>
+  <main>
+    <section id="welcome" class="full-screen section1">
+      <p>HELLO! I'M YESID</p> <br> <p>A BACKEND DEVELOPER. I CREATE SOLID CODE STRUCTURES, WITH ETHICS AND DEDICATION</p>
+      <a href="#work">PROYECTS</a>
+    </section>
 
-    <main>
+    <section id="work" class="full-screen section2">
+      <div class="container">
+        <div class="left-box">
 
-    </main>
+          <h2>C#</h2>
+          <p>One of my most complicated projects has been the CRUD of a user management platform using the .NET framework. It was certainly a challenge, but I was able to learn a lot, and I hope to be of great help to a team with my experience in C# with .NET and databases such as OleDb or MySQL.</p>
+          <img src="./../assets/imgs/WhatsApp Image 2025-06-09 at 07.59.19.jpeg" alt="Image c# code" height="300"/>
+        </div>
+        <div class="right-boxes">
+          <div class="top-box">
 
-    <footer>
+            <h2>PYTHON</h2>
+            <p>Basic Python projects, such as designing and managing a store's inventory, using libraries, dictionaries, and lists to create a kind of storage simulating a database when the code is running.</p>
+            <img src="./../assets/imgs/WhatsApp Image 2025-06-09 at 10.56.55.jpeg" alt="Python code" height="205"/>
+          </div>
+          <div class="bottom-box">
 
-    </footer>
+            <h2>VANILLA</h2>
+            <p>My latest project is this one, the creation of this personal portfolio, where I showcase my HTML and CSS skills in a pure form, without using external libraries.</p>
+            <img src="./../assets/imgs/WhatsApp Image 2025-06-09 at 11.11.47.jpeg" alt="fineline tattoo" height="205"/>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contactus" class="full-screen section3">
+      <h2>CONTACT ME</h2>
+      <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="text" placeholder="Company Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Tell with me!" rows="4" required></textarea>
+        <button type="submit">Let's Talk</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h2>YESID CASTRO</h2>
+        <p>Developer</p>
+      </div>
+      <div class="footer-links">
+        <a href="#welcome">MAIN</a>
+        <a href="#work">PROYECTS</a>
+        <a href="#contactus">CONTACT</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/yezid.sw?igsh=MXFuM2ZtdWt4MXk3ag==" target="_blank"><img src="./../assets/imgs/icons/logotipo-de-instagram.png" alt="Instagram" /></a>
+        <a href="https://github.com/yezid-jr" target="_blank"><img src="./../assets/imgs/icons/github (1).png" alt="github" /></a>
+        <a href="https://www.tiktok.com/es/" target="_blank"><img src="./../assets/imgs/icons/tik-tok.png" alt="TikTok" /></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 YesidDev. All rights reserved.
+    </div>
+  </footer>
 </body>
 </html>
