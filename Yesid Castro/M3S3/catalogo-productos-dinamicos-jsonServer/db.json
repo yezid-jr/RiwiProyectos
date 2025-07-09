@@ -1,0 +1,25 @@
+{
+    "productos": [
+        {
+            "id": 1,
+            "img" : "./img/71vFer4pylS.webp",
+            "nombre": "Guantes de Seguridad",
+            "descripcion": "Guantes industriales resistentes al corte.",
+            "precio": 25000
+        },
+        {
+            "id": 2,
+            "img" : "./img/image.webp",
+            "nombre": "Casco de Protección",
+            "descripcion": "Casco dieléctrico certificado para trabajos en altura.",
+            "precio": 48000
+        },
+        {
+            "id": 3,
+            "img" : "./img/D_Q_NP_2X_785348-MCO43268250198_082020-E.webp",
+            "nombre": "Gafas Antiempañantes",
+            "descripcion": "Lentes de seguridad con recubrimiento antiempañante.",
+            "precio": 18000
+        }
+    ]
+}
